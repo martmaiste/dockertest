@@ -11,6 +11,7 @@ RUN	apk update && \
 	apache2 \
 	postgresql-client \
 	php7 \
+	php7-apache2 \
         php7-bcmath \
         php7-dom \
         php7-ctype \
@@ -47,11 +48,13 @@ composer global update && \
 ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush && \
 mkdir /app && chown -R apache:apache /app && \
 mkdir /run/apache2 && \
-sed -i 's#^DocumentRoot ".*#DocumentRoot "/app"#g' /etc/apache2/httpd.conf && \
+sed -i 's#^DocumentRoot ".*#DocumentRoot "/app/drupal/web"#g' /etc/apache2/httpd.conf && \
+sed -i 's#/var/www/localhost/htdocs#/app/drupal/web#' /etc/apache2/httpd.conf && \
 sed -i 's#AllowOverride none#AllowOverride All#' /etc/apache2/httpd.conf && \
+git clone https://github.com/ruut12/HTM.git /app && \
+composer --working-dir=/app/drupal require drupal/config_installer && \
+composer --working-dir=/app/drupal update && \
 echo "Success"
-
-ADD drupal.conf /etc/apache2/conf.d/
 
 ADD run.sh /run.sh
 RUN chmod +x /run.sh
