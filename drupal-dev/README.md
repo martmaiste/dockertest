@@ -13,5 +13,5 @@ postgres:10.3
 ```
 
 ```
-docker run -d --name drupal -p 8080:80 --network=htm --link db:db drupal
+docker run -d --name drupa-dev -p 8080:80 --network=htm --link db:db drupal-dev
 ```
