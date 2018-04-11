@@ -44,10 +44,9 @@ RUN	apk update && \
 rm -rf /var/cache/apk/* && \
 mkdir /app && chown -R apache:apache /app && \
 mkdir /run/apache2 && \
-sed -i 's#^DocumentRoot ".*#DocumentRoot "/app/drupal/web"#g' /etc/apache2/httpd.conf && \
-sed -i 's#/var/www/localhost/htdocs#/app/drupal/web#' /etc/apache2/httpd.conf && \
-sed -i 's#AllowOverride none#AllowOverride All#' /etc/apache2/httpd.conf && \
-git clone https://github.com/ruut12/HTM.git /app && \
+sed -i 's#^DocumentRoot ".*#DocumentRoot "/app/web"#g' /etc/apache2/httpd.conf && \
+sed -i 's#/var/www/localhost/htdocs#/app/web#' /etc/apache2/httpd.conf && \
+sed -i 's#AllowOverride None#AllowOverride All#' /etc/apache2/httpd.conf && \
 echo "Success"
 
 ADD run.sh /run.sh
