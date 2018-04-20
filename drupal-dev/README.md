@@ -8,10 +8,15 @@ docker run -d --name=db \
   -e POSTGRES_DB=drupaldb \
   -e POSTGRES_USER=drupaluser \
   -e POSTGRES_PASSWORD=drupalpassword \
-  -v db_data:/var/lib/postgresql  \
+  -v $HOME/data/postgres:/var/lib/postgresql  \
 postgres:10.3
 ```
 
 ```
-docker run -d --name drupa-dev -p 8080:80 --network=htm --link db:db drupal-dev
+docker run -d --name drupa-dev \
+  --network=htm \
+  -p 8080:80 \
+  --link db:db \
+  -v $HOME/data/app:/app \
+drupal-dev
 ```
